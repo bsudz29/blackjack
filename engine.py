@@ -1,8 +1,8 @@
 import cards
 import streamlit as st
 
-def gameengine():
-    st.write('Welcome!')
+def gameengine(container=st): # if want to print in a container, pass one thorugh
+    container.write('Welcome!')
 
 def hit():
     pass
