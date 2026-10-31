@@ -8,10 +8,10 @@ Rank,Suit,Image URL
 8,spades,images/8C.png
 9,spades,images/9C.png
 10,spades,images/0C.png
-J,spades,images/JC.png
-Q,spades,images/QC.png
-K,spades,images/KC.png
-A,spades,images/AC.png
+Jack,spades,images/JC.png
+Queen,spades,images/QC.png
+King,spades,images/KC.png
+Ace,spades,images/AC.png
 
 2,diamonds,images/2D.png
 3,diamonds,images/3D.png
@@ -22,10 +22,10 @@ A,spades,images/AC.png
 8,diamonds,images/8D.png
 9,diamonds,images/9D.png
 10,diamonds,images/0D.png
-J,diamonds,images/JD.png
-Q,diamonds,images/QD.png
-K,diamonds,images/KD.png
-A,diamonds,images/AD.png
+Jack,diamonds,images/JD.png
+Queen,diamonds,images/QD.png
+King,diamonds,images/KD.png
+Ace,diamonds,images/AD.png
 
 2,hearts,images/2H.png
 3,hearts,images/3H.png
@@ -36,10 +36,10 @@ A,diamonds,images/AD.png
 8,hearts,images/8H.png
 9,hearts,images/9H.png
 10,hearts,images/0H.png
-J,hearts,images/JH.png
-Q,hearts,images/QH.png
-K,hearts,images/KH.png
-A,hearts,images/AH.png
+Jack,hearts,images/JH.png
+Queen,hearts,images/QH.png
+King,hearts,images/KH.png
+Ace,hearts,images/AH.png
 
 2,clubs,images/2C.png
 3,clubs,images/3C.png
@@ -50,7 +50,7 @@ A,hearts,images/AH.png
 8,clubs,images/8C.png
 9,clubs,images/9C.png
 10,clubs,images/0C.png
-J,clubs,images/JC.png
-Q,clubs,images/QC.png
-K,clubs,images/KC.png
-A,clubs,images/AC.png
+Jack,clubs,images/JC.png
+Queen,clubs,images/QC.png
+King,clubs,images/KC.png
+Ace,clubs,images/AC.png
