@@ -1,17 +1,17 @@
 Rank,Suit,Image URL
-2,spades,images/2C.png
-3,spades,images/3C.png
-4,spades,images/4C.png
-5,spades,images/5C.png
-6,spades,images/6C.png
-7,spades,images/7C.png
-8,spades,images/8C.png
-9,spades,images/9C.png
-10,spades,images/0C.png
-Jack,spades,images/JC.png
-Queen,spades,images/QC.png
-King,spades,images/KC.png
-Ace,spades,images/AC.png
+2,spades,images/2S.png
+3,spades,images/3S.png
+4,spades,images/4S.png
+5,spades,images/5S.png
+6,spades,images/6S.png
+7,spades,images/7S.png
+8,spades,images/8S.png
+9,spades,images/9S.png
+10,spades,images/0S.png
+Jack,spades,images/JS.png
+Queen,spades,images/QS.png
+King,spades,images/KS.png
+Ace,spades,images/AS.png
 
 2,diamonds,images/2D.png
 3,diamonds,images/3D.png

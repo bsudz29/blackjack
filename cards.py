@@ -40,6 +40,3 @@ class Card:
     def value(self, new): #right now only to be used to set ace to value: 1 when applies
         self._value = new
         
-
-
-
