@@ -128,10 +128,10 @@ if __name__ == "__main__":
         c1.subheader("Controls", text_alignment='center')
         @st.fragment
         def controls():
-            if c1.button("Hit", width='stretch', disabled=len(st.session_state.dealerHand) != 2):
+            if c1.button("Hit", width='stretch', disabled=len(st.session_state.dealerHand) != 2 or st.session_state['winner']):
                 hit()
                 st.rerun()
-            if c1.button("Stand", width='stretch'):
+            if c1.button("Stand", width='stretch', disabled=st.session_state['winner']):
                 stand()
                 st.rerun()
         controls()
