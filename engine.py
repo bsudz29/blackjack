@@ -1,55 +1,104 @@
 import cards
 import images
 import streamlit as st
-
-#! css files can be used to manipulate the images and the containers for no scrolling
+import time
 
 def game(container): # if want to print in a container, pass one thorugh
     #game logic
-    playerHand = st.session_state['playerHand']
-    playerTotal = st.session_state['playerTotal']
-    dealerHand = st.session_state['dealerHand'] 
-    dealerTotal = st.session_state['dealerTotal']
+    if not st.session_state['winner']:
+        playerHand = st.session_state['playerHand']
+        playerTotal = st.session_state['playerTotal']
+        dealerHand = st.session_state['dealerHand'] 
+        dealerTotal = st.session_state['dealerTotal']
 
-    #game start       
-    playerHand.append(cards.Card())
-    playerHand.append(cards.Card())
-    dealerHand.append(cards.Card())
-    dealerHand.append(cards.Card())
+        #for debugging and testing
+        #container.write(cards.Card.chosen)
+        #container.write(playerHand[0].value)
+        #container.write(playerHand[1].value)
+        
+        dh = container.container(border=True, horizontal_alignment='center', horizontal=True, height=240)
+        dh.subheader('Dealer Hand', width='content')
+        dsubc = dh.container(horizontal_alignment='center', horizontal=True)
+        if st.session_state['dealercard2image'] == "images/card_back.png":
+            dsubc.image(dealerHand[0].getImage)
+            dsubc.image(st.session_state['dealercard2image'])
+        else:
+            for card in dealerHand:
+                dsubc.image(card.getImage)
+        
+        ph = container.container(border=True, horizontal_alignment='center', horizontal=True, height=240)
+        ph.subheader('Player Hand', width='content')
+        psubc = ph.container(horizontal_alignment='center', horizontal=True)
+        for card in playerHand:
+            psubc.image(card.getImage)
+    else:
+        st.session_state['started'] = False
 
-    #for debugging and testing
-    #container.write(cards.Card.chosen)
-    #container.write(playerHand[0].value)
-    #container.write(playerHand[1].value)
-    
-    dh = container.container(border=True, horizontal_alignment='center', horizontal=True)
-    dh.subheader('Dealer Hand', width='content')
-    dsubc = dh.container(horizontal_alignment='center', horizontal=True)
-    dsubc.image(playerHand[0].getImage)
-    dsubc.image(playerHand[1].getImage)
 def hit():
-    pass
+    st.session_state['playerHand'].append(cards.Card())
+    st.session_state['playerTotal'] = sum([card.value for card in st.session_state['playerHand']])
+    st.write(st.session_state['playerHand'])
 
 def stand():
-    pass
+    st.session_state['dealercard2image'] = st.session_state['dealerHand'][1].getImage
+    while st.session_state['dealerTotal'] < 17:
+        st.session_state['dealerHand'].append(cards.Card())
+        st.session_state['dealerTotal'] = sum([card.value for card in st.session_state['dealerHand']])
+
+def determine_winner():
+    pt = st.session_state['playerTotal']
+    dt = st.session_state['dealerTotal']
+    winner = st.session_state['winner']
+    if pt > 21:
+        st.session_state['winner'] = True
+    elif dt > 21:
+        st.session_state['winner'] = True
+    elif pt == 21:
+        st.session_state['winner'] = True
+    elif dt == 21:
+        st.session_state['winner'] = True
+    elif st.session_state['dealerTotal'] >= 17:
+        if pt > dt:
+            st.session_state['winner'] = True
+        else:
+            st.session_state['winner'] = True
+    else:
+        return
+    st.write(st.session_state['winner'])
+    
+    
+        
+
 
 #ui setup
 if __name__ == "__main__":
+    # CSS code is generated from AI as I do not know CSS. Prompt was "How can I have the heights of images be restrictive upon the container's height"
+    st.html("""
+            <style>
+                [data-testid="stVerticalBlock"][data-testid="stVerticalBlock"] img {
+                    max-height: 210px;
+                    width: auto;
+                    object-fit: contain;
+                }
+            </style>
+            """)
+
     st.set_page_config(page_title="Blackjack", layout="wide")
-    
     st.title("Blackjack", text_alignment="center")
 
     #define states to be tracked
     if "started" not in st.session_state:
         st.session_state.started = False
+    if "winner" not in st.session_state:
+        st.session_state.winner = False
     if "playerHand" not in st.session_state:
-        st.session_state.playerHand = []
+        st.session_state.playerHand = [cards.Card(), cards.Card()]
     if "dealerHand" not in st.session_state:
-        st.session_state.dealerHand = []
+        st.session_state.dealerHand = [cards.Card(), cards.Card()]
     if "playerTotal" not in st.session_state:
-        st.session_state.playerTotal = 0
+        st.session_state.playerTotal = sum([card.value for card in st.session_state.playerHand])
     if "dealerTotal" not in st.session_state:
-        st.session_state.dealerTotal = 0
+        st.session_state.dealerTotal = sum([card.value for card in st.session_state.dealerHand])
     if "dealercard2image" not in st.session_state:
         st.session_state['dealercard2image'] = "images/card_back.png"
    
@@ -79,10 +128,14 @@ if __name__ == "__main__":
         c1.subheader("Controls", text_alignment='center')
         @st.fragment
         def controls():
-            c1.button("Hit", width='stretch', on_click=hit)
-            c1.button("Stand", width='stretch', on_click=stand)
+            if c1.button("Hit", width='stretch', disabled=len(st.session_state.dealerHand) != 2):
+                hit()
+                st.rerun()
+            if c1.button("Stand", width='stretch'):
+                stand()
+                st.rerun()
         controls()
-        gsc1 = c2.container(border=True, width='stretch', height=500, horizontal_alignment='center')
+        gsc1 = c2.container(border=True, width='stretch', height=540, horizontal_alignment='center', vertical_alignment='center')
         game(gsc1)
 
 
